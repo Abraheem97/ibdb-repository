@@ -1,0 +1,14 @@
+= simple_form_for @book, html: {multiple: true} do |f|
+        
+    .form-group 
+        =f.input :image
+
+    .form-group 
+        =f.input :title, input_html: {class: 'form-control' }        
+
+    .form-group 
+        =f.input :author_name, input_html: {class: 'form-control' }
+
+
+    
+    = f.button :submit, class: "btn btn-primary"                

@@ -1,0 +1,6 @@
+<%= @book.title%><br>
+<%= link_to @book.author_name, show_author_path%><br>
+
+<%= image_tag @book.image.url%>
+<%= link_to "Delete", book_path(@book), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-default"%>
+<%= link_to "Edit", edit_book_path, class: "btn btn-default"%>

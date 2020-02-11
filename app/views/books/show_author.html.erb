@@ -1,0 +1,22 @@
+<h1>Name of author </h1>
+<h3><%=@author.name%></h3>
+
+
+
+ <h1>More Books From This Author</h1>
+
+
+<hr>
+        <% @author.books.each do |book|%>
+            <div class = "col-sm-6 col-md-4">
+                <div class = "thumbnail thumb-box">
+                
+                <h2 style = "text-align:center;"><%=link_to book.title, book %></h2>
+                
+                <div class = "caption" style ="text-align:center;">
+                <%= link_to image_tag(book.image.url,size: "250x300"), book%>
+                </div>
+                </div>
+                </div>
+                
+        <%end%>
