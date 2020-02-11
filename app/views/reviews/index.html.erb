@@ -1,0 +1,17 @@
+<div class = "caption" style ="text-align:center;">
+<h1>Reviews </h1>
+</div>
+
+   <div class = "col-md-10 col-md-offset-1">
+     <% @book.reviews.each do |review|%>
+        <div class = "jumbotron">
+            
+            <p><b><%= review.rating %></b>/5</p>
+            
+            <%= review.comment %>
+            <p>Submitted by <%= review.user.email%></p>
+            
+            </div>
+        <% end %>
+        
+        </div>

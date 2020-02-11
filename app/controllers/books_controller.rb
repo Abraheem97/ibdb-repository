@@ -1,7 +1,6 @@
 class BooksController < ApplicationController
 
-    before_action :find_book, only: [:show,:edit,:destroy,:update,:upvote,:add_author,:show_author]
-    
+    before_action :find_book, only: [:show,:edit,:destroy,:update,:upvote,:add_author,:show_author] 
     
 
    

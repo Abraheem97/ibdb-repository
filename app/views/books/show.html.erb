@@ -1,4 +1,6 @@
-<div class = "col-sm-6 col-md-4">
+
+<div class = "row">
+<div class = "col-sm-7 col-md-4">
     <div class = "thumbnail thumb-box"> 
         <div class = "caption" style ="text-align:center;">
             <h1><%= @book.title%><br></h1>
@@ -6,7 +8,46 @@
             <p>By <%= link_to @book.author_name, show_author_path%></p><br>
 <%= link_to "Delete", book_path(@book), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-default"%>
 <%= link_to "Edit", edit_book_path, class: "btn btn-default"%>
+<% if user_signed_in? %>
+<% unless current_user.reviews.exists?(book_id: @book.id) %>
+<p><%= link_to "Add review", new_book_review_path(@book) , class: "btn btn-primary btn-lg"%></p>
+<%end%>
+<%end%>
 
+
+            </div>
+        </div>
+    </div>
+<div class = "caption" style ="text-align:center;">
+<h1>Reviews </h1>
 </div>
-                </div>
-                </div>
+   <div class = "col-md-7 col-md-offset-1">
+   <% if @book.reviews.exists?%>
+     <% @book.reviews.limit(2).each do |review| %>
+        <div class = "jumbotron">
+            
+            <p><b><%= review.rating %></b>/5</p>
+            
+            <%= review.comment %>
+            <p>Submitted by <%= review.user.email%></p>
+            
+            </div>
+        <% end %>
+        <div class = "caption" style ="text-align:center;">
+        <% if @book.reviews.count > 2%>
+        <%= link_to "See more reviews", book_reviews_path(@book)%>
+        <% end %>
+        </div>
+        </div>
+        </div>
+    <% else %>
+        <p> This book has no review, add one if you like! <p>
+    <%end%>
+
+
+        <br/>
+        <div class = "row">
+            <div class = "caption" style ="text-align:center;">
+            <h1> Comments </h1>
+        </div>
+
