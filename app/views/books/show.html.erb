@@ -1,6 +1,12 @@
-<%= @book.title%><br>
-<%= link_to @book.author_name, show_author_path%><br>
-
-<%= image_tag @book.image.url%>
+<div class = "col-sm-6 col-md-4">
+    <div class = "thumbnail thumb-box"> 
+        <div class = "caption" style ="text-align:center;">
+            <h1><%= @book.title%><br></h1>
+            <%= image_tag @book.image.url%><br>            
+            <p>By <%= link_to @book.author_name, show_author_path%></p><br>
 <%= link_to "Delete", book_path(@book), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-default"%>
 <%= link_to "Edit", edit_book_path, class: "btn btn-default"%>
+
+</div>
+                </div>
+                </div>
