@@ -18,6 +18,16 @@ class BooksController < ApplicationController
             #@user = @book.user
             @comment = Comment.new
             @comments = @book.comments.order("created_at DESC")
+
+            @reviews = @book.reviews
+            
+            if @reviews.blank?
+                @avg_review = 0
+            else
+                @avg_review = @reviews.average(:rating).floor
+            end
+
+           
         end
     
         def new

@@ -10,6 +10,6 @@ class User < ApplicationRecord
 
 
   def username
-    return email.split('@').first.capitalize
+    return email.split('@').first
   end
 end

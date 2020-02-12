@@ -1,11 +1,17 @@
 
 <div class = "row">
 <div class = "col-sm-7 col-md-4">
+    <h1 style ="text-align:center;"> Book </h1>
     <div class = "thumbnail thumb-box"> 
         <div class = "caption" style ="text-align:center;">
             <h1><%= @book.title%><br></h1>
-            <%= image_tag @book.image.url%><br>            
-            <p>By <%= link_to @book.author_name, show_author_path%></p><br>
+            
+            <%= image_tag @book.image.url%><br><br>            
+            <strong><p>By <%= link_to @book.author_name, show_author_path%></p><strong>
+            <% @avg_review.to_i.times do  %>
+            <span class="glyphicon glyphicon-star"></span>
+            <% end %>
+            <p><b><%= @avg_review %></b>/5</p>
 <%= link_to "Delete", book_path(@book), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-default"%>
 <%= link_to "Edit", edit_book_path, class: "btn btn-default"%>
 <% if user_signed_in? %>
@@ -25,7 +31,9 @@
    <% if @book.reviews.exists?%>
      <% @book.reviews.limit(2).each do |review| %>
         <div class = "jumbotron">
-            
+            <% review.rating.to_i.times do  %>
+            <span class="glyphicon glyphicon-star"></span>
+            <% end %>
             <p><b><%= review.rating %></b>/5</p>
             
             <%= review.comment %>

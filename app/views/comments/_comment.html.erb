@@ -1,3 +1,6 @@
 <div class = "jumbotron">
-[<%= comment.created_at.strftime("%I:%M %p")%>]<strong> <%= comment.user.username%> : <%= comment.body%><strong><br>
+<h3><strong> <%= comment.user.username%> says <br> </h3>
+  <div class = "caption" style ="text-align:center;">
+<%= comment.body%><strong>
+</div>
 </div>
