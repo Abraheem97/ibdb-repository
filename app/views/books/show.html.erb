@@ -51,3 +51,14 @@
             <h1> Comments </h1>
         </div>
 
+
+<%= render 'comments/form'%>
+
+<div id="comment_pane">
+<% @comments.each do |comment| %> 
+
+<%= render 'comments/comment', comment: comment %>
+
+<%end%>
+</div>
+

@@ -16,6 +16,8 @@ class BooksController < ApplicationController
         
         def show 
             #@user = @book.user
+            @comment = Comment.new
+            @comments = @book.comments.order("created_at DESC")
         end
     
         def new

@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
   
+  
   devise_for :users
  
 
   resources :books do 
     resources :reviews, except: [:show]
+    resources :comments, except: [:index]
   end
 
 
