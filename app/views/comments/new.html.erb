@@ -1,11 +1,13 @@
-<div class = "jumbotron">
-<h3><strong> <%= @comment.parent.user.username%> says <br> </h3>
-  <div class = "caption" style ="text-align:center;">
-<%= @comment.parent.body%><strong>
-</div>
-</div>
-<h1 style ="text-align:center;" >Reply</h1>
-<% render 'replyform' if @comment.parent.present?%>
-<%= render 'form', comment: @comment %>
 
-<p style ="text-align:center;"><%= link_to 'Back', book_path(@comment.parent.book) %></p>
+
+
+
+<%= form_for @comment, url: book_comments_path do |f| %>
+  <%= f.text_area(:body, class: 'form-control', placeholder: "Enter reply here" ) %>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  
+  <%= f.hidden_field :parent_id, :value => params[:parent_id] %>
+  <div class = 'create post'>
+    <%= f.submit('Post', class: 'btn btn-large btn-primary')  %>
+  </div>
+<%end%>

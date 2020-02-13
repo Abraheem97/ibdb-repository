@@ -4,7 +4,9 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    @comment = Comment.new(:parent_id => params[:parent_id]) 
+    @comment = Comment.new() 
+   
+    
       
   end
   
@@ -14,11 +16,14 @@ class CommentsController < ApplicationController
 
 
   def create
+    puts "==========="*100
+    puts params.inspect
+    puts "==========="*100
     @comment = @book.comments.new(comment_params)
     @comment.user = current_user  
     @comment.save
     
-   if params[:parent_id].present?
+   if @comment.parent_id != nil
     redirect_to book_path(@book)
    end     
   end
@@ -43,7 +48,7 @@ class CommentsController < ApplicationController
 
     
   def comment_params
-    params.require(:comment).permit(:body)
+    params.require(:comment).permit(:body,:parent_id)
   end
 
   def set_book
