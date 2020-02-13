@@ -1,5 +1,11 @@
-<h1>New Comment</h1>
+<div class = "jumbotron">
+<h3><strong> <%= @comment.parent.user.username%> says <br> </h3>
+  <div class = "caption" style ="text-align:center;">
+<%= @comment.parent.body%><strong>
+</div>
+</div>
+<h1 style ="text-align:center;" >Reply</h1>
 
 <%= render 'form', comment: @comment %>
 
-<%= link_to 'Back', comments_path %>
+<p style ="text-align:center;"><%= link_to 'Back', book_path(@comment.parent.book) %></p>
