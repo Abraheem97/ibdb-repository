@@ -16,9 +16,7 @@ class CommentsController < ApplicationController
 
 
   def create
-    puts "==========="*100
-    puts params.inspect
-    puts "==========="*100
+
     @comment = @book.comments.new(comment_params)
     @comment.user = current_user  
     @comment.save
