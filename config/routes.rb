@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
   
+  mount RailsAdmin::Engine => '/sadmin', as: 'rails_admin'
   devise_for :users
  
 

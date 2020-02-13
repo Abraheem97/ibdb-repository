@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_12_115702) do
+ActiveRecord::Schema.define(version: 2020_02_13_071627) do
 
   create_table "authors", force: :cascade do |t|
     t.string "name"
@@ -47,7 +47,6 @@ ActiveRecord::Schema.define(version: 2020_02_12_115702) do
     t.integer "user_id"
     t.integer "book_id"
     t.string "ancestry"
-    t.index ["ancestry"], name: "index_comments_on_ancestry"
     t.index ["book_id"], name: "index_comments_on_book_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -101,6 +100,7 @@ ActiveRecord::Schema.define(version: 2020_02_12_115702) do
     t.datetime "locked_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "superadmin", default: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

@@ -4,7 +4,8 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    @comment = Comment.new(:parent_id => params[:parent_id])   
+    @comment = Comment.new(:parent_id => params[:parent_id]) 
+      
   end
   
 

@@ -1,6 +1,5 @@
-
 <%= form_with model: [@book, @comment] do |f|%>
-<% f.hidden_field :parent_id%>
+
 <%= f.text_area :body, placeholder: "Add a comment", class: 'form-control'  %>
 <div style ="text-align:center;"><br>
 <%= f.submit "Comment", class: 'btn btn-primary'%>

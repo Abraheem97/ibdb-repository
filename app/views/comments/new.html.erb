@@ -5,7 +5,7 @@
 </div>
 </div>
 <h1 style ="text-align:center;" >Reply</h1>
-
+<% render 'replyform' if @comment.parent.present?%>
 <%= render 'form', comment: @comment %>
 
 <p style ="text-align:center;"><%= link_to 'Back', book_path(@comment.parent.book) %></p>
