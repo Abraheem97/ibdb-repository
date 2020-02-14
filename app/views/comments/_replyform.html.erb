@@ -1,9 +1,16 @@
-<%= form_with model: [@book, @comment] do |f|%>
 
-<% f.hidden_field :parent_id, value: params[:parent_id] %>
-<%= f.text_area :body, placeholder: "Add a comment", class: 'form-control'  %>
-<div style ="text-align:center;"><br>
-<%= f.submit "Comment", class: 'btn btn-primary' %>
-</div>
-<% end %>
-<br>
+<%= form_for @comment, url: book_comments_path(book) do |f| %>
+  <%= f.text_area(:body, class: 'form-control', placeholder: "Enter reply here" ) %>
+  
+<% if user_signed_in?%>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  <%end%>
+  
+  <%= f.hidden_field :parent_id, :value => good_id %>
+  <div class = 'create post'><br/>
+  <div style ="text-align:center;">
+    <%= f.submit('Post', class: 'btn btn-large btn-primary')  %>
+    </div>
+  </div>
+
+<%end%>
