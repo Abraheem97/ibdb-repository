@@ -11,9 +11,14 @@
             <% @avg_review.to_i.times do  %>
             <span class="glyphicon glyphicon-star"></span>
             <% end %>
-            <p><b><%= @avg_review %></b>/5</p>
+            <% @emptystars.to_i.times do  %>
+            <span class="glyphicon glyphicon-star-empty"></span>
+            <% end %>
+            <p><b><%= pluralize(@book.reviews.count, "review") %></p>
+            <% if user_signed_in? && current_user.superadmin == true%>
 <%= link_to "Delete", book_path(@book), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-default"%>
 <%= link_to "Edit", edit_book_path, class: "btn btn-default"%>
+<%end%>
 <% if user_signed_in? %>
 <% unless current_user.reviews.exists?(book_id: @book.id) %>
 <p><%= link_to "Add review", new_book_review_path(@book) , class: "btn btn-primary btn-lg"%></p>
@@ -34,10 +39,15 @@
             <% review.rating.to_i.times do  %>
             <span class="glyphicon glyphicon-star"></span>
             <% end %>
-            <p><b><%= review.rating %></b>/5</p>
+            <% @empty = 5-review.rating %>
+            <% @empty.times do  %>
+            <span class="glyphicon glyphicon-star-empty"></span>
+            <% end %>
             
-            <%= review.comment %>
-            <p>Submitted by <%= review.user.email%></p>
+           <br><br>
+            
+            <%= review.comment %> <br>
+            Submitted by <%= review.user.email%>
             
             </div>
         <% end %>

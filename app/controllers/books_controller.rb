@@ -21,12 +21,18 @@ def show
             
     if @reviews.blank?
         @avg_review = 0
+        @emptystars = 5
     else
         @avg_review = @reviews.average(:rating).floor
-    end           
+        @emptystars = 5 - @avg_review.to_i
+    end 
+              
 end
     
 def new
+    unless user_signed_in? && current_user.superadmin == true 
+        redirect_to root_path
+    end
     @book = Book.new()
     #@book = current_user.books.build 
 end

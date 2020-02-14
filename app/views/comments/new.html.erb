@@ -7,7 +7,9 @@
   <%= f.hidden_field :user_id, :value => current_user.id %>
   
   <%= f.hidden_field :parent_id, :value => params[:parent_id] %>
-  <div class = 'create post'>
+  <div class = 'create post'><br/>
+  <div style ="text-align:center;">
     <%= f.submit('Post', class: 'btn btn-large btn-primary')  %>
+    </div>
   </div>
 <%end%>
