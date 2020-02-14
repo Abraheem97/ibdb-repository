@@ -6,7 +6,7 @@
         <div class = "caption" style ="text-align:center;">
             <h1><%= @book.title%><br></h1>
             
-            <%= image_tag @book.image.url%><br><br>            
+            <%= image_tag(@book.image.url,size: "250x300")%><br><br>            
             <strong><p>By <%= link_to @book.author_name, show_author_path%></p><strong>
             <% @avg_review.to_i.times do  %>
             <span class="glyphicon glyphicon-star"></span>
