@@ -10,7 +10,31 @@
           <%= link_to "Delete", book_comment_path(@book, comment) , method: :delete, data: { confirm: "Are you sure?" }%> |
         <% end%>
         <% end%>
-        <%= link_to "Reply", new_book_comment_path(comment.book, :parent_id => comment.id) , class: "btn btn-primary"%>
+        <%# <%= link_to "Reply", new_book_comment_path(comment.book, :parent_id => comment.id) , class: "btn btn-primary"%>
+        <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Reply
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Reply</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <%= render 'comments/replyform', book: comment.book , good_id: comment.id %>
+      </div>
+      <div class="modal-footer">
+        
+      </div>
+    </div>
+  </div>
+</div>
 
       </div>
   
