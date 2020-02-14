@@ -1,52 +1,43 @@
+# Controller for comments
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
   before_action :set_book
   before_action :authenticate_user!
 
   def new
-    @comment = Comment.new() 
-   
-    
-      
-  end
-  
-
-  def edit
+    @comment = Comment.new
   end
 
+  def edit; end
 
   def create
-
     @comment = @book.comments.new(comment_params)
-    @comment.user = current_user  
+    @comment.user = current_user
     @comment.save
-    
-   if @comment.parent_id != nil
-    redirect_to book_path(@book)
-   end     
+    redirect_to book_path(@book) unless @comment.parent_id.nil?
   end
-
 
   def update
     if @comment.update(comment_params)
-      redirect_to @comment, notice: 'Comment was successfully updated.' 
+      redirect_to @comment, notice: 'Comment was successfully updated.'
     else
-      render :edit 
-    end    
+      render :edit
+    end
   end
 
   def destroy
     @comment.destroy
-    redirect_to @book, notice: 'Comment was successfully destroyed.' 
+      redirect_to @book, notice: 'Comment was successfully destroyed.'
   end
 
   def set_comment
     @comment = Comment.find(params[:id])
   end
+  
+  private
 
-    
   def comment_params
-    params.require(:comment).permit(:body,:parent_id)
+    params.require(:comment).permit(:body, :parent_id)
   end
 
   def set_book

@@ -1,0 +1,9 @@
+
+Style/SymbolArray:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+ 
+Documentation:  #every file needs to have a description
+  Enabled: false
