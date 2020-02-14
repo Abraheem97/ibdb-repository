@@ -1,6 +1,7 @@
 <% if comment.parent_id == nil %>
   <div class = "jumbotron jumbotron-fluid">
-    <h3><strong> <%= comment.user.username%> says <br> </h3>
+  
+    <h3><%= image_tag(comment.user.avatar.url,size: "59x59")%><strong> <%= comment.user.username%> says <br> </h3>
       
         <%= comment.body%><strong><br><br>
         <div class = "caption" style ="text-align:center;">
@@ -14,11 +15,11 @@
 
 
 <%if comment.replies.any?%>
-  <% comment.replies.each do |replies| %>
-  <h3><strong><%= replies.user.username %> replied<strong></h3>
-    <p><%= replies.body %><br></p>
-    <%if replies.user == current_user %>
-    <div style ="text-align:center;"><%= link_to "Delete reply", book_comment_path(@book, replies) , method: :delete, data: { confirm: "Are you sure?" }%> </div>
+  <% comment.replies.each do |reply| %>
+  <h3><%= image_tag(reply.user.avatar.url,size: "59x59")%> <strong><%= reply.user.username %> replied<strong></h3>
+    <p><%= reply.body %><br></p>
+    <%if reply.user == current_user %>
+    <div style ="text-align:center;"><%= link_to "Delete reply", book_comment_path(@book, reply) , method: :delete, data: { confirm: "Are you sure?" }%> </div>
     <% end %>
           
   <%end%>

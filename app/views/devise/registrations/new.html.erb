@@ -14,12 +14,13 @@
                 input_html: { autocomplete: "new-password" } %>
     <%= f.input :password_confirmation,
                 required: true,
-                input_html: { autocomplete: "new-password" } %>
+                input_html: { autocomplete: "new-password" } %> <br/>
+    <B>Add Avatar<%= f.file_field :avatar %>   <br>         
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, "Sign up" %>
+    <%= f.button :submit, "Sign up" %><br>
   </div>
 <% end %>
-
+<br>
 <%= render "devise/shared/links" %>
