@@ -1,8 +1,9 @@
 # Controller for comments
 class CommentsController < ApplicationController
-  before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  before_action :set_comment, only: %i[show edit destroy update]
   before_action :set_book
   before_action :authenticate_user!
+  load_and_authorize_resource
 
   def new
     @comment = Comment.new
@@ -27,7 +28,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
-      redirect_to @book, notice: 'Comment was successfully destroyed.'
+    redirect_to @book, notice: 'Comment was successfully destroyed.'
   end
 
   def set_comment

@@ -36,34 +36,32 @@ class Ability
     if user.superadmin?
       can :manage, :all
       can :access, :rails_admin
-      can :manage, :dashboard 
-      can :manage, Review 
-      can :manage, Book      
+      can :manage, :dashboard
+      can :manage, Review
+      can :manage, Book
       can :manage, Comment
     end
     
-    if user.admin_role?     
+    if user.admin_role?
       
-      cannot :destroy, User, admin_role: true      
-      can :manage, Book      
+      cannot :destroy, User, admin_role: true
+      can :manage, Book
       can :manage, Comment
-      can :manage, Review        
+      can :manage, Review
     end
 
     if user.moderator_role?
      
-      cannot :destroy, User,  admin_role: true 
-      can :manage, User, superadmin: false          
+      cannot :destroy, User,  admin_role: true
+      can :manage, User, superadmin: false
       can :manage, Book
       can :manage, Comment
       can :manage, Review
     end
 
     if user.user_role?
-      can [:update, :delete], Comment, user_id: user.id      
-      can :manage, Review, user: user
+      can :read, Book
+      can %i[delete create update], Comment
     end
-
-
   end
 end

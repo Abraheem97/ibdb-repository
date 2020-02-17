@@ -1,7 +1,9 @@
 # Controller for books
 class BooksController < ApplicationController
 	before_action :find_book, only: %i[show edit destroy update upvote add_author show_author] 
+	load_and_authorize_resource
 	skip_before_action :authenticate_user!, only: %i[index show]
+	
 						
 	def index
 		@books = Book.all
@@ -21,25 +23,18 @@ class BooksController < ApplicationController
 		end
 	end
 		
-	def new
-		@book = Book.new()
+	def new # for moderator only, admin and sadmin will use dashoboard to create
 		unless user_signed_in? && current_user.moderator_role == true
 			redirect_to root_path
-		end			
+		end
+		@book = Book.new()
 	end
 		
 	def create
 		@book = Book.create(book_params)
-									
-		if Author.exists?(name: @book.author_name)
-			@book.author = Author.find_by_name(@book.author_name)
-			@book.save
-		else
-			@author = Author.create(name: @book.author_name)
-			@author.save
-			@book.author = @author
-			@book.save
-		end
+		@author = Author.find_or_create_by(name: @book.author_name)
+		@book.author = @author
+		@book.save	
 		redirect_to @book, notice: 'Successfully created book'
 	end
 									
