@@ -1,124 +1,99 @@
 
 <div class = "row">
 <div class = "col-sm-7 col-md-4">
-    <h1 style ="text-align:center;"> Book </h1>
+  <h1 style ="text-align:center;"> Book </h1>
     <div class = "thumbnail thumb-box"> 
-        <div class = "caption" style ="text-align:center;">
-            <h1><%= @book.title%><br></h1>
-            
-            <%= image_tag(@book.image.url,size: "250x300")%><br><br>            
-            <strong><p>By <%= link_to @book.author_name, show_author_path%></p><strong>
-            <% @avg_review.to_i.times do  %>
-            <span class="glyphicon glyphicon-star"></span>
-            <% end %>
-            <% @emptystars.to_i.times do  %>
-            <span class="glyphicon glyphicon-star-empty"></span>
-            <% end %>
-            <p><b><%= pluralize(@book.reviews.count, "review") %></p>
-            <% if user_signed_in? && current_user.superadmin == true%>
-<%= link_to "Delete", book_path(@book), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-default"%>
-<%= link_to "Edit", edit_book_path, class: "btn btn-default"%>
-<%end%>
-<% if user_signed_in? %>
-<% unless current_user.reviews.exists?(book_id: @book.id) %>
-
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Add Review
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add review</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <%= form_for([@book, @review = Review.new]) do |form| %> 
-
-
-  
-    <%= form.label :rating %>
-    <%= form.select(:rating, options_for_select([[1,1],[2,2],[3,3],[4,4],[5,5]])) %>
-  
-
-  
-    
-    <%= form.text_area(:comment, class: 'form-control', placeholder: "Tell us about the book" )%>
-  
-
-  <div class="actions"><br/>
-    <%= form.submit('Submit review', class: 'btn btn-large btn-primary') %>
-  </div>
-    <% end %>
-      </div>
-      <div class="modal-footer">
-    
-      </div>
-    </div>
-  </div>
-</div>
-<%end%>
-<%end%>
-
-
+      <div class = "caption" style ="text-align:center;">
+        <h1><%= @book.title%><br></h1>            
+        <%= image_tag(@book.image.url,size: "250x300")%><br><br>            
+        <strong><p>By <%= link_to @book.author_name, show_author_path%></p><strong>
+        <% @avg_review.to_i.times do  %>
+          <span class="glyphicon glyphicon-star"></span>
+        <% end %>
+        <% @emptystars.to_i.times do  %>
+          <span class="glyphicon glyphicon-star-empty"></span>
+        <% end %>
+        <p><b><%= pluralize(@book.reviews.count, "review") %></p>
+        <% if can? :manage, Book %>
+          <%= link_to "Delete", book_path(@book), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-default"%>
+          <%= link_to "Edit", edit_book_path, class: "btn btn-default"%>
+        <%end%>
+        <% if user_signed_in? %>
+          <% unless current_user.reviews.exists?(book_id: @book.id) %>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Add Review
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add review</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <%= form_for([@book, @review = Review.new]) do |form| %>  
+                      <%= form.label :rating %>
+                      <%= form.select(:rating, options_for_select([[1,1],[2,2],[3,3],[4,4],[5,5]])) %>    
+                      <%= form.text_area(:comment, class: 'form-control', placeholder: "Tell us about the book" )%>
+                      <div class="actions"><br/>
+                        <%= form.submit('Submit review', class: 'btn btn-large btn-primary') %>
+                      </div>
+                    <% end %>
+                  </div>
+                  <div class="modal-footer">
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
+          <%end%>
+        <%end%>
+      </div>
     </div>
+  </div>
+
 <div class = "caption" style ="text-align:center;">
-<h1>Reviews </h1>
+  <h1>Reviews </h1>
 </div>
-   <div class = "col-md-7 col-md-offset-1">
-   <% if @book.reviews.exists?%>
-     <% @book.reviews.limit(2).each do |review| %>
-        <div class = "jumbotron">
-            <% review.rating.to_i.times do  %>
-            <span class="glyphicon glyphicon-star"></span>
-            <% end %>
-            <% @empty = 5-review.rating %>
-            <% @empty.times do  %>
-            <span class="glyphicon glyphicon-star-empty"></span>
-            <% end %>
-            
-           <br><br>
-            
-            <%= review.comment %> <br>
-            Submitted by <%= review.user.email%>
-            
-            </div>
+<div class = "col-md-7 col-md-offset-1">
+  <% if @book.reviews.exists?%>
+    <% @book.reviews.limit(2).each do |review| %>
+      <div class = "jumbotron">
+        <% review.rating.to_i.times do  %>
+          <span class="glyphicon glyphicon-star"></span>
         <% end %>
-        <div class = "caption" style ="text-align:center;">
-        <% if @book.reviews.count > 2%>
+        <% @empty = 5-review.rating %>
+        <% @empty.times do  %>
+          <span class="glyphicon glyphicon-star-empty"></span>
+        <% end %>
+        <br><br>
+        <%= review.comment %> <br>
+        Submitted by <%= review.user.email%>            
+      </div>
+    <% end %>
+    <div class = "caption" style ="text-align:center;">
+      <% if @book.reviews.count > 2%>
         <%= link_to "See more reviews", book_reviews_path(@book)%>
-        <% end %>
-        </div>
-        </div>
-        </div>
-    <% else %>
-        <p> This book has no review, add one if you like! <p>
-    <%end%>
-
-
-        <br/>
-        <div class = "row">
-            <div class = "caption" style ="text-align:center;">
-            <h1> Comments </h1>
-        </div>
-
-
-<%= render 'comments/form'%>
-
-<div id="comment_pane">
-<% @comments.each do |comment| %> 
-
-<%= render 'comments/comment', comment: comment %>
-
-
-<%end%>
+      <% end %>
+    </div>
+  </div>
+  <% else %>
+     This book has no review, add one if you like! 
+  <%end%>
 </div>
+<br/>
 
+<div class = "row">
+  <div class = "caption" style ="text-align:center;">
+    <h1> Comments </h1>
+  </div>
+  <%= render 'comments/form'%>
+  <div id="comment_pane">
+    <% @comments.each do |comment| %> 
+      <%= render 'comments/comment', comment: comment %>
+    <%end%>
+  </div>
+</div>

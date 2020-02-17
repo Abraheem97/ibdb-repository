@@ -1,24 +1,25 @@
 <div class = "caption" style ="text-align:center;">
-<h1>Reviews </h1>
+  <h1>Reviews </h1>
 </div>
 
-   <div class = "col-md-10 col-md-offset-1">
-     <% @book.reviews.each do |review|%>
-        <div class = "jumbotron">
-            <% review.rating.to_i.times do  %>
-            <span class="glyphicon glyphicon-star"></span>
-            <% end %>
-            <% @empty = 5-review.rating %>
-            <% @empty.times do  %>
-            <span class="glyphicon glyphicon-star-empty"></span>
-            <% end %>
-            
-           <br><br>
-            
-            <%= review.comment %> <br>
-            Submitted by <%= review.user.email%>
-            
+<div class = "col-md-10 col-md-offset-1">
+  <% @book.reviews.each do |review|%>
+    <div class = "jumbotron">
+      <% review.rating.to_i.times do  %>
+        <span class="glyphicon glyphicon-star"></span>
+      <% end %>
+      <% @empty = 5-review.rating %>
+      <% @empty.times do  %>
+        <span class="glyphicon glyphicon-star-empty"></span>
+      <% end %>
+      <br><br>
+      <%= review.comment %> <br>
+      Submitted by <%= review.user.email%>
+      <% if can? :manage, Review %>
+        <%= link_to "Delete", book_comment_path(@book, review) , method: :delete, data: { confirm: "Are you sure?" }%> 
+      <%end %>
             </div>
+            
         <% end %>
         
         </div>

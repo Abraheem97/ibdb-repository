@@ -1,6 +1,7 @@
 # Controller for books
 class BooksController < ApplicationController
-	before_action :find_book, only: [:show, :edit, :destroy, :update, :upvote, :add_author, :show_author] 
+	before_action :find_book, only: %i[show edit destroy update upvote add_author show_author] 
+	skip_before_action :authenticate_user!, only: %i[index show]
 						
 	def index
 		@books = Book.all
@@ -22,7 +23,7 @@ class BooksController < ApplicationController
 		
 	def new
 		@book = Book.new()
-		unless user_signed_in? && current_user.superadmin == true
+		unless user_signed_in? && current_user.moderator_role == true
 			redirect_to root_path
 		end			
 	end
