@@ -2,8 +2,7 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[show edit destroy update]
   before_action :set_book
-  before_action :authenticate_user!
-  load_and_authorize_resource
+  before_action :authenticate_user!  
 
   def new
     @comment = Comment.new

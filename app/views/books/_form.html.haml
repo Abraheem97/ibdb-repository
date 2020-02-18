@@ -1,12 +1,25 @@
 = simple_form_for @book, html: {multiple: true} do |f|
         
     .form-group 
-        =f.input :image
+        =f.input :image, label: "Book Cover"
 
     .form-group 
-        =f.input :title, input_html: {class: 'form-control' }        
+        =f.input :title, input_html: {class: 'form-control' }, label: "Book Title"      
+
+    .form-group
+        %b Author Name 
+        %br
+        =f.collection_select :author_name, Author.order(:name),:name,:name, include_blank: true 
+        %b * leave blank if specifying
+        %br
 
     .form-group 
-        =f.input :author_name, input_html: {class: 'form-control' } 
+        =f.input :author_name, input_html: {class: 'form-control' }, label: "Specify if author doesn't already exist"
     
-    = f.button :submit, class: "btn btn-primary"                
+    %br
+    .caption{:style => "text-align:center;"}
+        = f.button :submit, class: "btn btn-primary"
+    %br
+        
+        
+                        

@@ -31,37 +31,43 @@ class Ability
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
 
-    user ||= User.new # guest user (not logged in)
-   
+     # guest user (not logged in)
+    user ||= User.new
     if user.superadmin?
       can :manage, :all
-      can :access, :rails_admin
+      can :manage, :rails_admin
+      
       can :manage, :dashboard
+      can :manage, User
       can :manage, Review
       can :manage, Book
       can :manage, Comment
     end
     
     if user.admin_role?
-      
-      cannot :destroy, User, admin_role: true
+      can :access, :rails_admin
+      can :manage, :dashboard      
+      can :read, User
+      can :destroy, User, {superadmin: false, admin_role: false}      
+      can :edit, User, admin_role: false
+      can :create, User      
       can :manage, Book
       can :manage, Comment
       can :manage, Review
     end
 
-    if user.moderator_role?
-     
-      cannot :destroy, User,  admin_role: true
-      can :manage, User, superadmin: false
+    if user.moderator_role? 
+      can :manage, User, {superadmin: false, admin_role: false, moderator_role?: false}
       can :manage, Book
       can :manage, Comment
       can :manage, Review
     end
 
     if user.user_role?
-      can :read, Book
-      can %i[delete create update], Comment
+      can :read, Author
+      can :read, Book                 
     end
+
+    can :delete, Comment, user_id: user.id
   end
 end

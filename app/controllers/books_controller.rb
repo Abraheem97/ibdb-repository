@@ -1,8 +1,8 @@
 # Controller for books
 class BooksController < ApplicationController
-	before_action :find_book, only: %i[show edit destroy update upvote add_author show_author] 
-	load_and_authorize_resource
-	skip_before_action :authenticate_user!, only: %i[index show]
+	before_action :find_book, only: %i[show edit destroy update upvote add_author show_author]	
+	skip_before_action :authenticate_user!, only: %i[index show show_author]
+	
 	
 						
 	def index

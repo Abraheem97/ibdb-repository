@@ -1,7 +1,8 @@
 RailsAdmin.config do |config|
- 
-  ### Popular gems integration
-
+  
+    ### Popular gems integration
+  config.parent_controller = '::ApplicationController'
+  @super_admin = User.find_by_email("superadmin@ibdb.com")
   ## == Devise ==
    config.authenticate_with do
      warden.authenticate! scope: :user
@@ -38,5 +39,43 @@ RailsAdmin.config do |config|
     # history_index
     # history_show
   end
+
+  # if current_user.admin_role?
+  #   config.model 'User' do
+  #     create do
+  #       field :email
+  #       field :password
+  #       field :confirmed_at
+  #       field :moderator_role
+  #       field :user_role
+  #     end
+    
+  #   end
+  
+
+config.model 'User' do
+  create do
+    include_fields :email, :password, :confirmed_at, :user_role, :moderator_role
+    
+    field :admin_role do
+      visible do        
+        bindings[:view].current_user.superadmin?
+      end
+    end
+
+  end
+  
+  
+  edit do
+    include_fields :email, :password, :confirmed_at, :user_role, :moderator_role
+    
+    field :admin_role do
+      visible do        
+        bindings[:view].current_user.superadmin?
+      end
+    end
+  end
+end
+
 
 end
