@@ -92,8 +92,37 @@
   </div>
   <%= render 'comments/form'%>
   <div id="comment_pane">
-    <% @comments.each do |comment| %> 
+    <% @comments.each do |comment| %> <div id = "comment_#{comment.id}">
       <%= render 'comments/comment', comment: comment %>
     <%end%>
+    </div>
   </div>
+</div>
+
+<!-- Modal -->
+<div id="replyModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="replyModalLabel1" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5 style ="text-align:center;" class="modal-title" id="replyModalLabel1">REPLYING TO </h5><span id="parent_comment"></span>
+        
+      </div>
+        <div class="modal-body">
+        <input type="text" id="comment" class= 'form-control'>
+        <% if user_signed_in?%>
+          <input type="hidden" id="user_id" name="user_id" value="<%= current_user.id %>">
+        <%end%>
+        <input type="hidden" id="parent_id" name="parent_id">
+        <div class = 'create post'><br/>
+          <div style ="text-align:center;">
+            <button class="btn btn-primary btn-large" onclick="saveReply(<%= @book.id %>)">Reply</button>
+          </div>
+        </div>
+        </div>        
+      </div>
+    </div>
+  </div>          
 </div>

@@ -14,7 +14,14 @@ class CommentsController < ApplicationController
     @comment = @book.comments.new(comment_params)
     @comment.user = current_user
     @comment.save
-    redirect_to book_path(@book) unless @comment.parent_id.nil?
+    unless @comment.parent_id.nil?
+      @reply = @comment
+    end
+    respond_to do |format|
+      format.js { [@comment, @reply] }
+    end
+
+    
   end
 
   def update
@@ -26,8 +33,10 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment.destroy
-    redirect_to @book, notice: 'Comment was successfully destroyed.'
+    @comment.destroy    
+    respond_to do |format|
+      format.js { @comment }
+    end
   end
 
   def set_comment

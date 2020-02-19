@@ -65,9 +65,10 @@ class Ability
 
     if user.user_role?
       can :read, Author
-      can :read, Book                 
+      can :read, Book               
     end
 
     can :delete, Comment, user_id: user.id
+    can :delete, Review, user_id: user.id
   end
 end
