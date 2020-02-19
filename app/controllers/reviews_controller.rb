@@ -3,7 +3,7 @@ class ReviewsController < ApplicationController
   before_action :set_review, only: %i[show edit destroy update]
   before_action :set_book
   before_action :authenticate_user!
-   
+  
   def new
     @review = Review.new
   end

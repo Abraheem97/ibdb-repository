@@ -2,7 +2,7 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[show edit destroy update]
   before_action :set_book
-  before_action :authenticate_user!  
+  before_action :authenticate_user!
 
   def new
     @comment = Comment.new
@@ -20,8 +20,6 @@ class CommentsController < ApplicationController
     respond_to do |format|
       format.js { [@comment, @reply] }
     end
-
-    
   end
 
   def update
@@ -33,7 +31,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment.destroy    
+    @comment.destroy
     respond_to do |format|
       format.js { @comment }
     end

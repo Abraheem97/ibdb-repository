@@ -1,4 +1,5 @@
-<div id="comment_<%= reply.id %>">
+
+<div class="reply" id="comment_<%= reply.id %>">
  <h3 ><%= image_tag(reply.user.avatar.url,size: "59x59")%> <strong><%= reply.user.username %> replied<strong></h3>
             <p><%= reply.body %><br></p>
             <%= time_ago_in_words(reply.created_at) %> ago

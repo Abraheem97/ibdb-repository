@@ -29,11 +29,10 @@
       <div id=<%= "container_replies#{comment.id}" -%>>
     
         
-      <%if comment.replies.any?%>
-        
+      <%if comment.replies.any?%>        
           <% comment.replies.each do |reply| %>          
             <%= render 'comments/reply', reply: reply %>                                 
-          <%end%>
+      <%end%>
          
       <%end%>
       </div>

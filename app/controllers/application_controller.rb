@@ -4,8 +4,6 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :set_current_user
 
-
-
   def set_current_user
     User.current = current_user
   end
@@ -16,8 +14,6 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: %i[email password_confirmation password avatar])
     devise_parameter_sanitizer.permit(:account_update, keys: %i[email password_confirmation password avatar])
   end
-  
-
 end
 
 
