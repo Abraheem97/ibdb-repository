@@ -1,44 +1,31 @@
-
-
-<% unless comment.parent_id? %>  
-  <div class = "jumbotron jumbotron-fluid" id="comment_<%= comment.id %>">
-      <h3><%= image_tag(comment.user.avatar.url,size: "59x59")%><strong> <%= comment.user.username%> says <br> </h3>      
-      <%= comment.body%><strong><br><br>
-      <%= time_ago_in_words(comment.created_at) %> ago
-        <div class = "caption" style ="text-align:center;">
-        <%if user_signed_in?%>          
-          <% if can? :delete, comment  %>
-            <%= link_to "", book_comment_path(@book, comment), method: :delete, data: { confirm: "Are you sure?" }, class: "glyphicon glyphicon-remove", remote: true %>           
-            <%= link_to "", edit_book_comment_path(@book,comment), class: "glyphicon glyphicon-pencil" %>
-          <% end%>
-        <%end%>
-            
-            
-      
-    <!-- Button trigger modal -->
-    <button class="btn btn-primary btn-sm" onclick="openCommentModal(<%= comment.id %>, `<%= comment.body %>`,`<%= comment.user.username%>`)" data-toggle="modal">
-     <span class="glyphicon glyphicon-share-alt"></span>
-       Reply
-    </button>
-
- 
-
-
-    </div>
-
-      <div id=<%= "container_replies#{comment.id}" -%>>
+<li> 
+  <div class = "jumbotron" id="comment_<%= comment.id %>">
+    <h3><%= image_tag(comment.user.avatar.url,size: "59x59")%><strong> <%= comment.user.username%> says <br> </h3> 
+    <% if comment.image_file_name? %>
+    <div style ="text-align:center;">
+    <div class="img-fluid img-thumbnail"> 
+    <%=image_tag(comment.image.url,size: "200x200") %>    
+    </div><br><br>
+    <% end %>
+    <%= comment.body%><strong><br><br>
+    <%= time_ago_in_words(comment.created_at) %> ago
     
-        
-      <%if comment.replies.any?%>        
-          <% comment.replies.each do |reply| %>          
-            <%= render 'comments/reply', reply: reply %>                                 
-      <%end%>
-         
-      <%end%>
-      </div>
-      
-     
-       
-  </div>  
-<%end%>
+      <%= link_to "Delete", book_comment_path(@book, comment), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-outline-primary btn-sm", remote: true %>|
+      <%= link_to "Edit", edit_book_comment_path(@book,comment), class: "btn btn-outline-primary btn-sm" %>      
+               
+          <div style ="text-align:center;"> 
+            <!-- Button trigger modal -->
+            <button class="btn btn-primary btn-sm" onclick="openCommentModal(<%= comment.id %>, `<%= comment.body %>`,`<%= comment.user.username%>`)" data-toggle="modal">
+            <span class="glyphicon glyphicon-share-alt"></span>
+              Reply
+            </button>
+          </div>
+
+  <div id=<%= "container_replies#{comment.id}" -%>>      
+    <ol class="commentlist">
+      <%= render partial: 'comments/comment', collection: comment.replies %>
+    </ol>    
+  </div>      
+  </div>
+</li>
 

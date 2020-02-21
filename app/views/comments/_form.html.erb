@@ -1,7 +1,15 @@
 <%= form_with model: [@book, @comment] do |f|%>
 
 <%= f.text_area :body, placeholder: "Add a comment", class: 'form-control'  %>
-<div style ="text-align:center;"><br>
+
+<div style ="text-align:center;">
+<div class="image-upload">
+   <label for="file-input">
+     <span class="glyphicon glyphicon-camera"></span>
+   </label>
+
+   <%= f.file_field :image, id:"file-input" %>
+</div>
 <%= f.submit "Comment", class: 'btn btn-primary'%>
 </div>
 

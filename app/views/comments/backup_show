@@ -62,8 +62,8 @@
 </div>
 <div class = "col-md-7 col-md-offset-1">
   <% if @book.reviews.exists?%>
-    <% @book.reviews.limit(4).each do |review| %>
-      <div class = "jumbotron jumbotron-fluid">
+    <% @book.reviews.limit(2).each do |review| %>
+      <div class = "jumbotron">
         <% review.rating.to_i.times do  %>
           <span class="glyphicon glyphicon-star"></span>
         <% end %>
@@ -77,7 +77,7 @@
       </div>
     <% end %>
     <div class = "caption" style ="text-align:center;">
-      <% if @book.reviews.count > 4%>
+      <% if @book.reviews.count > 2%>
         <%= link_to "See more reviews", book_reviews_path(@book)%>
       <% end %>
     </div>
@@ -91,20 +91,20 @@
 <div class = "row">
   <div class = "caption" style ="text-align:center;">
     <h1><strong> Comments <strong> </h1>
-    <% if current_user %>
-      <%= render 'comments/form'%>
-    <% else %>
-      <h4>You need to <%= link_to "Sign In", new_user_session_path %> to comment </h4> <br>
-      <% end %>
-  </div>
-  <div id="comment_pane" class="mycomment">
   
-    <ol class="commentlist">
-      <%= render(partial: 'comments/comment', collection: @comments) %>
-    </ol>
+  <% if current_user %>
+  <%= render 'comments/form'%>
+  <% else %>
+  <h4>You need to <%= link_to "Sign In", new_user_session_path %> to comment </h4> <br>
+  <% end %>
+  </div>
+  <div id="comment_pane">
+    <% @comments.each do |comment| %> <div id = "comment_#{comment.id}">
+      <%= render 'comments/comment', comment: comment %>
+    <%end%>
+    </div>
   </div>
 </div>
-
 
 <!-- Modal -->
 <div id="replyModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="replyModalLabel1" aria-hidden="true">
@@ -125,12 +125,6 @@
         <input type="hidden" id="parent_id" name="parent_id">
         <div class = 'create post'><br/>
           <div style ="text-align:center;">
-            <div class="image-upload">
-              <label for="file-input">
-                <span class="glyphicon glyphicon-camera"></span>
-              </label>             
-              <input type="file" id="replyimage" class= 'form-control' name="imagee">
-              </div>
             <button class="btn btn-primary btn-large" onclick="saveReply(<%= @book.id %>)">Reply</button>
           </div>
         </div>

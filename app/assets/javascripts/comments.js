@@ -13,12 +13,16 @@ function saveReply(book_id){
     var parent_id = $('#parent_id').val();
     var user_id = $('#user_id').val();
     var comment = $('#comment').val();
+    let img = $('#replyimage').val();
+    console.log(img)
+   
+
     var url = "/books/" + book_id + "/comments"
     $.ajax({
 
         url: url,
         type: "post",
-        data: { comment: { parent_id: parent_id, user_id: user_id, body: comment } }
+        data: { comment: { parent_id: parent_id, user_id: user_id, body: comment, image: img} }
 
       }).fail(function() {
 

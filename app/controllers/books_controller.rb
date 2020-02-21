@@ -15,7 +15,7 @@ class BooksController < ApplicationController
 
 	def show
 		@comment = Comment.new
-		@comments = @book.comments.order('created_at DESC')
+		@comments = @book.comments.where(parent_id: nil).order('created_at DESC')
 		@reviews = @book.reviews
 				
 		if @reviews.blank?

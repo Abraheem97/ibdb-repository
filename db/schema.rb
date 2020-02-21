@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_17_084549) do
+ActiveRecord::Schema.define(version: 2020_02_21_064834) do
 
   create_table "authors", force: :cascade do |t|
     t.string "name"
@@ -52,6 +52,10 @@ ActiveRecord::Schema.define(version: 2020_02_17_084549) do
     t.integer "user_id"
     t.integer "book_id"
     t.integer "parent_id"
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.bigint "image_file_size"
+    t.datetime "image_updated_at"
     t.index ["book_id"], name: "index_comments_on_book_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
