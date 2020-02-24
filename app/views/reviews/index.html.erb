@@ -3,7 +3,7 @@
 </div>
 
 <div class = "col-md-10 col-md-offset-1">
-  <% @book.reviews.each do |review|%>
+  <% @book.reviews.includes([:user]).each do |review|%>
     <div class = "jumbotron">
       <% review.rating.to_i.times do  %>
         <span class="glyphicon glyphicon-star"></span>

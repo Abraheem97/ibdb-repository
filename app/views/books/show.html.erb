@@ -62,7 +62,7 @@
 </div>
 <div class = "col-md-7 col-md-offset-1">
   <% if @book.reviews.exists?%>
-    <% @book.reviews.limit(4).each do |review| %>
+    <% @book.reviews.includes([:user]).limit(4).each do |review| %>
       <div class = "jumbotron jumbotron-fluid">
         <% review.rating.to_i.times do  %>
           <span class="glyphicon glyphicon-star"></span>
@@ -100,7 +100,7 @@
   <div id="comment_pane" class="mycomment">
   
     <ol class="commentlist">
-      <%= render(partial: 'comments/comment', collection: @comments) %>
+      <%= render(partial: 'comments/comment', collection: @comments.includes([:user])) %>
     </ol>
   </div>
 </div>

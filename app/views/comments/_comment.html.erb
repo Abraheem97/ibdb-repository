@@ -26,7 +26,7 @@
 
   <div id=<%= "container_replies#{comment.id}" -%>>      
     <ol class="commentlist">
-      <%= render partial: 'comments/comment', collection: comment.replies %>
+      <%= render partial: 'comments/comment', collection: comment.replies.includes([:user]) %>
     </ol>    
   </div>      
   </div>

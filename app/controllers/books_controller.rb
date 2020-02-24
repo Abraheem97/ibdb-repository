@@ -2,15 +2,14 @@
 class BooksController < ApplicationController
 	before_action :find_book, only: %i[show edit destroy update upvote add_author show_author]	
 	skip_before_action :authenticate_user!, only: %i[index show show_author]
-	
-	
+		
 						
 	def index
 		if params[:search]
-        	@books = Book.by_both(params[:search])
-        else
-            @books = Book.all
-        end
+      @books = Book.by_both(params[:search])
+    else
+      @books = Book.all
+    end
 	end
 
 	def show
@@ -62,6 +61,7 @@ class BooksController < ApplicationController
 	end										
 	
 	private
+	
 		def book_params
 			params.require(:book).permit(:title,:author_name,:image)
 		end
