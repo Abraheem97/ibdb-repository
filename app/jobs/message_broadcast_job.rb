@@ -8,13 +8,12 @@ class MessageBroadcastJob < ApplicationJob
  
   end
 
+  private 
+
   def render_message(message) 
     
-  	CommentsController.render(
-  		partial: 'comments/comment',
-  		locals: {
-  			comment: message
-  		}
-  	)
+  	CommentsController.render partial: 'comment',locals: {comment: message	}
+
   end
 end
+  

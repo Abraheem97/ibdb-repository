@@ -8,6 +8,10 @@ class CommentsController < ApplicationController
     @comment = Comment.new
   end
 
+  def show
+    params[:book_id] = @book.id
+  end
+
   def edit; end
 
   def create
@@ -19,12 +23,13 @@ class CommentsController < ApplicationController
     end
     respond_to do |format|
       format.js { [@comment, @reply] }
+      
     end
   end
 
   def update
     if @comment.update(comment_params)
-      redirect_to @comment, notice: 'Comment was successfully updated.'
+      redirect_to @book, notice: 'Comment was successfully updated.'
     else
       render :edit
     end

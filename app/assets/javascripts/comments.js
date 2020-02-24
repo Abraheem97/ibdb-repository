@@ -13,8 +13,8 @@ function saveReply(book_id){
     var parent_id = $('#parent_id').val();
     var user_id = $('#user_id').val();
     var comment = $('#comment').val();
-    let img = $('#replyimage').val();
-    console.log(img)
+    
+   
    
 
     var url = "/books/" + book_id + "/comments"
@@ -22,7 +22,7 @@ function saveReply(book_id){
 
         url: url,
         type: "post",
-        data: { comment: { parent_id: parent_id, user_id: user_id, body: comment, image: img} }
+        data: { comment: { book_id: book_id, parent_id: parent_id, user_id: user_id, body: comment} }
 
       }).fail(function() {
 

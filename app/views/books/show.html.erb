@@ -123,14 +123,9 @@
           <input type="hidden" id="user_id" name="user_id" value="<%= current_user.id %>">
         <%end%>
         <input type="hidden" id="parent_id" name="parent_id">
-        <div class = 'create post'><br/>
-          <div style ="text-align:center;">
-            <div class="image-upload">
-              <label for="file-input">
-                <span class="glyphicon glyphicon-camera"></span>
-              </label>             
-              <input type="file" id="replyimage" class= 'form-control' name="imagee">
-              </div>
+                 
+              
+              
             <button class="btn btn-primary btn-large" onclick="saveReply(<%= @book.id %>)">Reply</button>
           </div>
         </div>
