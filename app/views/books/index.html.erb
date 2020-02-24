@@ -6,23 +6,24 @@
      and give those books a review very easily.</p>
     <p><%= link_to "Sign up to write a review", new_user_registration_path, class: "btn btn-primary btn-lg"%></p>
     <p><%= link_to "Sign in", new_user_session_path, class: "btn btn-primary btn-lg"%></p>
-    </div>
-    <% end %>
+</div>
+<% end %>
 
 
 <hr>
-        <% @books.each do |book|%>
-            <div class = "col-sm-6 col-md-4">
-                <div class = "thumbnail thumb-box" class="mimg">                
-                <h3  style = "text-align:center;" ><%= book.title%></h3>
-                
-                <div class = "caption" style ="text-align:center;">
-                
+<% @books.each do |book|%>
+    <div class = "col-sm-6 col-md-4">
+        <div class = "thumbnail thumb-box" class="mimg"> 
+            <h3  style = "text-align:center;" ><%= book.title%></h3>                
+            <div class = "caption" style ="text-align:center;">                
                 <%= link_to image_tag(book.image.url,size: "250x350"), book%><br>
-               By <%= link_to book.author_name, show_author_path(book) %>
-                
-                </div>
-                </div>
-                </div>
-                
-        <%end%>
+                By <%= link_to book.author_name, show_author_path(book) %>                
+            </div>
+        </div>
+    </div>
+<%end%>
+
+<div  style = "text-align:center;">
+    <%= pagy_bootstrap_nav(@pagy).html_safe %>
+</div>
+

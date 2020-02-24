@@ -1,14 +1,15 @@
 # Controller for books
 class BooksController < ApplicationController
+	include Pagy::Backend
 	before_action :find_book, only: %i[show edit destroy update upvote add_author show_author]	
 	skip_before_action :authenticate_user!, only: %i[index show show_author]
 		
 						
 	def index
 		if params[:search]
-      @books = Book.by_both(params[:search])
-    else
-      @books = Book.all
+     	 	@pagy, @books = pagy(Book.by_both(params[:search]), items: 3)
+    	else
+			@pagy, @books = pagy(Book.all, items: 3)
     end
 	end
 
