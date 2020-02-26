@@ -5,17 +5,17 @@ class BooksController < ApplicationController
 	skip_before_action :authenticate_user!, only: %i[index show show_author]
 		
 						
-	def index
+	def index  
 		if params[:search]
-     	 	@pagy, @books = pagy(Book.by_both(params[:search]), items: 3)
-    	else
+     	@pagy, @books = pagy(Book.by_both(params[:search]), items: 3)
+    else
 			@pagy, @books = pagy(Book.all, items: 3)
     end
 	end
 
 	def show
 		@comment = Comment.new
-		@comments = @book.comments.where(parent_id: nil).order('created_at DESC')
+		@pagy, @comments = pagy(@book.comments.where(parent_id: nil).order('created_at DESC'), items: 10)
 		@reviews = @book.reviews
 				
 		if @reviews.blank?

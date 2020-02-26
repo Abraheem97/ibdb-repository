@@ -1,9 +1,9 @@
 <% if @comment.parent_id.nil? %>
     $('#comment_pane').prepend("<%= j render @comment %>");
+    App.chat.speak('<%=@comment.id%>')
     $('#comment_<%= @comment.id %>').hide().fadeIn(1000);
-    $('#comment_body').val('');
-    $('#file-input').val('');
-    
+    $('#commentmessage').val('');
+    $('#file-input').val('');    
 <% else %>
     $('#container_replies<%=@reply.parent_id%>').append("<%= j render 'comments/comment', comment: @reply %>");     
     $('#replyModal').modal('hide');

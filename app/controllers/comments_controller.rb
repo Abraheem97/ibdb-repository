@@ -2,14 +2,9 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[show edit destroy update]
   before_action :set_book
-  before_action :authenticate_user!
 
   def new
     @comment = Comment.new
-  end
-
-  def show
-    params[:book_id] = @book.id
   end
 
   def edit; end
@@ -22,8 +17,7 @@ class CommentsController < ApplicationController
       @reply = @comment
     end
     respond_to do |format|
-      format.js { [@comment, @reply] }
-      
+      format.js { [@comment, @reply] }      
     end
   end
 
@@ -45,14 +39,15 @@ class CommentsController < ApplicationController
   def set_comment
     @comment = Comment.find(params[:id])
   end
-  
+
   private
 
   def comment_params
-    params.require(:comment).permit(:body, :parent_id,:image)
+    params.require(:comment).permit(:body, :parent_id, :image)
   end
 
   def set_book
     @book = Book.find(params[:book_id])
   end
+
 end

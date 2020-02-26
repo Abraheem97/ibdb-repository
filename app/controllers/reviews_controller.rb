@@ -1,15 +1,20 @@
 # Controller for reviews
 class ReviewsController < ApplicationController
+  include Pagy::Backend
   before_action :set_review, only: %i[show edit destroy update]
   before_action :set_book
   before_action :authenticate_user!
-  
+
+  def index
+    @pagy, @reviews = pagy(@book.reviews, items: 5)
+  end
+
   def new
     @review = Review.new
   end
- 
+
   def edit; end
-  
+
   def create
     @review = Review.new(review_params)
     @review.user = current_user
@@ -20,7 +25,7 @@ class ReviewsController < ApplicationController
       render :new
     end
   end
- 
+
   def update
     if @review.update(review_params)
       redirect_to @book, notice: 'Review was successfully updated.'
@@ -47,4 +52,5 @@ class ReviewsController < ApplicationController
   def review_params
     params.require(:review).permit(:rating, :comment)
   end
+  
 end

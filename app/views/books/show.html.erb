@@ -93,6 +93,7 @@
     <h1><strong> Comments <strong> </h1>
     <% if current_user %>
       <%= render 'comments/form'%>
+      <script> $(document).ready(roomReady); </script>
     <% else %>
       <h4>You need to <%= link_to "Sign In", new_user_session_path %> to comment </h4> <br>
       <% end %>
@@ -103,6 +104,9 @@
       <%= render(partial: 'comments/comment', collection: @comments.includes([:user])) %>
     </ol>
   </div>
+  <div  style = "text-align:center;">
+    <%= pagy_bootstrap_nav(@pagy).html_safe %>
+</div>
 </div>
 
 

@@ -3,7 +3,7 @@
 </div>
 
 <div class = "col-md-10 col-md-offset-1">
-  <% @book.reviews.includes([:user]).each do |review|%>
+  <% @reviews.includes([:user]).each do |review|%>
     <div class = "jumbotron">
       <% review.rating.to_i.times do  %>
         <span class="glyphicon glyphicon-star"></span>
@@ -23,5 +23,9 @@
         <% end %>
         
         </div>
+
+        <div  style = "text-align:center;">
+    <%= pagy_bootstrap_nav(@pagy).html_safe %>
+</div>
 
         

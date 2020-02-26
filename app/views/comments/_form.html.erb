@@ -1,6 +1,6 @@
 <%= form_with model: [@book, @comment] do |f|%>
 
-<%= f.text_area :body, placeholder: "Add a comment", class: 'form-control'  %>
+<%= f.text_area :body, placeholder: "Add a comment", class: 'form-control', id:'commentmessage' %>
 
 <div style ="text-align:center;">
 <div class="image-upload">
@@ -10,9 +10,12 @@
 
    <%= f.file_field :image, id:"file-input" %>
 </div>
+
 <%= f.submit "Comment", class: 'btn btn-primary'%>
+
 </div>
 
 <% end %>
+
 
 <br>
